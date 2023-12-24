@@ -21,9 +21,9 @@ public class User {
     }
 
     // Constructor for login
-    public User(String identifier, String password) {
-        this.emailId = identifier;
-        this.phoneNo = identifier;
+    public User(String Username, String password) {
+        this.emailId = Username;
+        this.phoneNo = Username;
         this.password = password;
     }
 

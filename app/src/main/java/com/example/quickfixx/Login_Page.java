@@ -41,7 +41,7 @@ public class Login_Page extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String identifier = Objects.requireNonNull(((TextInputEditText) findViewById(R.id.Input1_Username)).getText()).toString();
+                String Username = Objects.requireNonNull(((TextInputEditText) findViewById(R.id.Input1_Username)).getText()).toString();
                 String password = Objects.requireNonNull(((TextInputEditText) findViewById(R.id.Input1_Password)).getText()).toString();
 
                 Retrofit retrofit = new Retrofit.Builder()
@@ -51,7 +51,7 @@ public class Login_Page extends AppCompatActivity {
 
                 Api api = retrofit.create(Api.class);
 
-                Call<ResponseBody> call = api.loginUser(new User(identifier, password));
+                Call<ResponseBody> call = api.loginUser(new User(Username, password));
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -62,7 +62,6 @@ public class Login_Page extends AppCompatActivity {
                         } else {
                         }
                     }
-
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                     }
