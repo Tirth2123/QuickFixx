@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    </style>
+    <style name="MyTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/colorPrimary</item>
+        <item name="boxStrokeWidth">0.8dp</item>
+
+    </style>
+    <style name="MyTextHint" parent="TextAppearance.Design.Hint">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="MyEditTextRegular" parent="Widget.AppCompat.EditText">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textColorHint">@color/colorTextHint</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="SortTextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginEnd">15dp</item>
+        <item name="android:padding">15dp</item>
+    </style>
+
+
+</resources>

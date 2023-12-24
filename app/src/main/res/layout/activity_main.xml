@@ -1,0 +1,98 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorMainBtn"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/sort_by"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:text="@string/sort_by"
+                    android:padding="15dp"
+                    app:chipBackgroundColor="#f4f4f4"
+                    app:chipCornerRadius="15dp"
+                    app:chipIcon="@drawable/icons8_sort_down_24"
+                    app:chipStrokeColor="#8F8B8B"
+                    app:chipSurfaceColor="#8F8B8B"
+                    app:chipStrokeWidth="1dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/top_rated"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:text="@string/top_rated"
+                    app:chipBackgroundColor="#f4f4f4"
+                    app:chipIcon="@drawable/icons8_star_24"
+                    app:chipCornerRadius="15dp"
+                    app:chipStrokeColor="#8F8B8B"
+                    app:chipSurfaceColor="#8F8B8B"
+                    app:chipStrokeWidth="1dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="17sp"
+                    android:gravity="center"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/ratings"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:text="@string/ratings"
+                    app:chipBackgroundColor="#f4f4f4"
+                    app:chipIcon="@drawable/icons8_sort_down_24"
+                    app:chipCornerRadius="15dp"
+                    app:chipStrokeColor="#8F8B8B"
+                    app:chipSurfaceColor="#000000"
+                    app:chipStrokeWidth="1dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>
