@@ -20,7 +20,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Login_Page extends AppCompatActivity {
-    private String Baseurl ="http://192.168.234.42:3000";
+    private String Baseurl = "http://192.168.234.42:3000";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class Login_Page extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),Signup_Page.class);
+                Intent intent = new Intent(getApplicationContext(), Signup_Page.class);
                 startActivity(intent);
             }
         });
@@ -41,20 +41,16 @@ public class Login_Page extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get user input
                 String identifier = Objects.requireNonNull(((TextInputEditText) findViewById(R.id.Input1_Username)).getText()).toString();
                 String password = Objects.requireNonNull(((TextInputEditText) findViewById(R.id.Input1_Password)).getText()).toString();
 
-// Create Retrofit instance
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(Baseurl)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 
-// Create Api instance
                 Api api = retrofit.create(Api.class);
 
-// Call the API
                 Call<ResponseBody> call = api.loginUser(new User(identifier, password));
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
@@ -64,13 +60,11 @@ public class Login_Page extends AppCompatActivity {
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
                         } else {
-                            // Handle the error
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        // Handle the error
                     }
                 });
             }
