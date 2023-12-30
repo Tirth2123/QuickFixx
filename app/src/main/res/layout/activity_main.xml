@@ -6,6 +6,25 @@
     android:background="@color/colorMainBtn"
     android:orientation="vertical">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <ImageButton
+            android:id="@+id/menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/icons8_menu_30" />
+
+    </androidx.appcompat.widget.Toolbar>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,9 +51,9 @@
                     app:chipBackgroundColor="#f4f4f4"
                     app:chipCornerRadius="15dp"
                     app:chipIcon="@drawable/icons8_sort_down_24"
-                    app:chipStrokeColor="#8F8B8B"
+                    app:chipStrokeColor="@color/colorPrimary"
                     app:chipSurfaceColor="#8F8B8B"
-                    app:chipStrokeWidth="1dp"
+                    app:chipStrokeWidth="2dp"
                     android:textColor="@color/colorPrimary"
                     android:textSize="17sp"
                     android:gravity="center"
@@ -55,9 +74,9 @@
                     app:chipBackgroundColor="#f4f4f4"
                     app:chipIcon="@drawable/icons8_star_24"
                     app:chipCornerRadius="15dp"
-                    app:chipStrokeColor="#8F8B8B"
+                    app:chipStrokeColor="@color/colorPrimary"
                     app:chipSurfaceColor="#8F8B8B"
-                    app:chipStrokeWidth="1dp"
+                    app:chipStrokeWidth="2dp"
                     android:textColor="@color/colorPrimary"
                     android:textSize="17sp"
                     android:gravity="center"/>
@@ -76,9 +95,9 @@
                     app:chipBackgroundColor="#f4f4f4"
                     app:chipIcon="@drawable/icons8_sort_down_24"
                     app:chipCornerRadius="15dp"
-                    app:chipStrokeColor="#8F8B8B"
+                    app:chipStrokeColor="@color/colorPrimary"
                     app:chipSurfaceColor="#000000"
-                    app:chipStrokeWidth="1dp"
+                    app:chipStrokeWidth="2dp"
                     android:textColor="@color/colorPrimary"
                     android:textSize="17sp"
                     android:gravity="center"
