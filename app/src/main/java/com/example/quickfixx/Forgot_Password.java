@@ -3,7 +3,9 @@ package com.example.quickfixx;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,8 +28,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Forgot_Password extends AppCompatActivity {
 
-    private String Baseurl ="http://192.168.234.42:3000";
-    //private String Baseurl ="http://10.0.2.2:3000";
+    //private String Baseurl ="http://192.168.234.42:3000";
+    private String Baseurl = "http://10.0.2.2:3000";
+    TextInputEditText emailInput, newPasswordInput, otpInput;
+    TextView sendOtpButton, resendOtpTimerTextView, resendOtpTextView;
+    TextView forgot_error_text_view_email, forgot_error_text_view_pass, forgot_error_text_view_otp;
+    LinearLayout verifyOtpButton, otp_layout, forgot_layout;
+    private Api api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,24 +46,32 @@ public class Forgot_Password extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        Api api = retrofit.create(Api.class);
+        api = retrofit.create(Api.class);
 
-        TextInputEditText emailInput = findViewById(R.id.Forgot_Input_Username);
-        TextInputEditText newPasswordInput = findViewById(R.id.Forgot_Input_Password);
-        TextInputEditText otpInput = findViewById(R.id.enter_Otp);
-        TextView sendOtpButton = findViewById(R.id.forgot_button);
-        LinearLayout verifyOtpButton = findViewById(R.id.verify_otp_layout);
-        LinearLayout otp_layout = findViewById(R.id.Otp_Layout);
-        LinearLayout forgot_layout = findViewById(R.id.forgot_layout);
+        emailInput = findViewById(R.id.Forgot_Input_Username);
+        newPasswordInput = findViewById(R.id.Forgot_Input_Password);
+        otpInput = findViewById(R.id.enter_Otp);
 
-        TextView forgot_error_text_view_email = findViewById(R.id.forgot_error_text_view_email);
-        TextView forgot_error_text_view_pass = findViewById(R.id.forgot_error_text_view_pass);
-        TextView forgot_error_text_view_otp = findViewById(R.id.forgot_error_text_view_otp);
+        sendOtpButton = findViewById(R.id.forgot_button);
+        resendOtpTimerTextView = findViewById(R.id.timer_text_view);
+        resendOtpTextView = findViewById(R.id.resend_otp_text_view);
+
+        verifyOtpButton = findViewById(R.id.verify_otp_layout);
+        otp_layout = findViewById(R.id.Otp_Layout);
+        forgot_layout = findViewById(R.id.forgot_layout);
+
+        forgot_error_text_view_email = findViewById(R.id.forgot_error_text_view_email);
+        forgot_error_text_view_pass = findViewById(R.id.forgot_error_text_view_pass);
+        forgot_error_text_view_otp = findViewById(R.id.forgot_error_text_view_otp);
+
+        verifyOtpButton = findViewById(R.id.verify_otp_layout);
+        otp_layout = findViewById(R.id.Otp_Layout);
+        forgot_layout = findViewById(R.id.forgot_layout);
+
 
         sendOtpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String email = Objects.requireNonNull(emailInput.getText()).toString();
                 String newpass = Objects.requireNonNull(newPasswordInput.getText()).toString();
 
@@ -93,42 +108,22 @@ public class Forgot_Password extends AppCompatActivity {
                 }else {
                     forgot_error_text_view_pass.setVisibility(View.GONE);
                 }
+                send_Otp();
+            }
+        });
 
-                String emailId = Objects.requireNonNull(emailInput.getText()).toString();
+        resendOtpTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                send_Otp();
+                resendOtpTextView.setVisibility(View.GONE);
 
-                HashMap<String, String> body = new HashMap<>();
-                body.put("emailId", emailId);
-
-                Call<ResponseBody> call = api.sendOtp(body);
-                call.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                        try {
-                            if (response.isSuccessful()) {
-                                String serverResponse = response.body().string();
-                                Toast.makeText(getApplicationContext(), serverResponse, Toast.LENGTH_SHORT).show();
-                                otp_layout.setVisibility(View.VISIBLE);
-                                forgot_layout.setVisibility(View.GONE);
-                            } else {
-                                String serverResponse = response.errorBody().string();
-                                Toast.makeText(getApplicationContext(), serverResponse, Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    @Override
-                    public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
-                        Toast.makeText(getApplicationContext(), "An error occurred", Toast.LENGTH_SHORT).show();
-                    }
-                });
             }
         });
 
         verifyOtpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String emailId = Objects.requireNonNull(emailInput.getText()).toString();
                 String otp = Objects.requireNonNull(otpInput.getText()).toString();
                 String newPassword = Objects.requireNonNull(newPasswordInput.getText()).toString();
@@ -159,22 +154,70 @@ public class Forgot_Password extends AppCompatActivity {
                     @Override
                     public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                         try {
+                            String serverResponse;
                             if (response.isSuccessful()) {
-                                String serverResponse = response.body().string();
-                                Toast.makeText(getApplicationContext(), serverResponse, Toast.LENGTH_SHORT).show();
+                                serverResponse = response.body().string();
+                                Intent intent = new Intent(getApplicationContext(), Login_Page.class);
+                                startActivity(intent);
+                                finish();
                             } else {
-                                String serverResponse = response.errorBody().string();
-                                Toast.makeText(getApplicationContext(), serverResponse, Toast.LENGTH_SHORT).show();
+                                serverResponse = response.errorBody().string();
                             }
+                            Toast.makeText(getApplicationContext(), serverResponse, Toast.LENGTH_SHORT).show();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
+
                     @Override
                     public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                         Toast.makeText(getApplicationContext(), "An error occurred", Toast.LENGTH_SHORT).show();
                     }
                 });
+            }
+        });
+    }
+
+    private void send_Otp() {
+        String emailId = Objects.requireNonNull(emailInput.getText()).toString();
+
+        HashMap<String, String> body = new HashMap<>();
+        body.put("emailId", emailId);
+
+        Call<ResponseBody> call = api.sendOtp(body);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        String serverResponse = response.body().string();
+                        Toast.makeText(getApplicationContext(), serverResponse, Toast.LENGTH_SHORT).show();
+                        otp_layout.setVisibility(View.VISIBLE);
+                        forgot_layout.setVisibility(View.GONE);
+                        new CountDownTimer(60000, 1000) {
+                            public void onTick(long millisUntilFinished) {
+                                resendOtpTimerTextView.setText(millisUntilFinished / 1000 + " Seconds Remaining");
+                            }
+
+                            public void onFinish() {
+                                resendOtpTimerTextView.setText("Didnt Recived OTP??");
+                                resendOtpTextView.setClickable(true);
+                                resendOtpTextView.setVisibility(View.VISIBLE);
+                            }
+                        }.start();
+                        resendOtpTextView.setClickable(false);
+                    } else {
+                        String serverResponse = response.errorBody().string();
+                        Toast.makeText(getApplicationContext(), serverResponse, Toast.LENGTH_SHORT).show();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                Toast.makeText(getApplicationContext(), "An error occurred", Toast.LENGTH_SHORT).show();
             }
         });
     }

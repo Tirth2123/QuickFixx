@@ -28,8 +28,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Login_Page extends AppCompatActivity {
-    private String Baseurl ="http://192.168.234.42:3000";
-    //private String Baseurl ="http://10.0.2.2:3000";
+    //private String Baseurl ="http://192.168.234.42:3000";
+    private String Baseurl ="http://10.0.2.2:3000";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
