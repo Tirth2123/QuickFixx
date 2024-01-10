@@ -25,8 +25,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Signup_Page extends AppCompatActivity {
-    //private String Baseurl ="http://192.168.234.42:3000";
-    private String Baseurl ="http://10.0.2.2:3000";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -178,12 +176,7 @@ public class Signup_Page extends AppCompatActivity {
 
                 User user = new User(name, address, city, state, phoneNo, emailId, password);
 
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Baseurl)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-
-                Api api = retrofit.create(Api.class);
+                Api api = RetrofitClient.getClient();
 
                 Call<ResponseBody> call = api.registerUser(user);
                 call.enqueue(new Callback<ResponseBody>() {

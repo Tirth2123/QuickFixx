@@ -18,9 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/icons8_menu_30" />
-
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
@@ -31,60 +30,50 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="16dp">
 
             <TextView
                 android:id="@+id/vendor_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/poppins_bold"
                 android:text="Plumbing Worker"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="20sp" />
 
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vendor_images_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginTop="16dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*Swipe to Change Image"
+                android:textColor="@color/colorPrimary"
+                android:layout_gravity="end"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="16dp"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/vendor_Star"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rate"
-                    android:fontFamily="@font/poppins_medium"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text="3.5"
-                    android:textColor="@color/colorPrimaryDark" />
-
-                <TextView
-                    android:id="@+id/vendor_Rating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text="114 Rating" />
 
                 <TextView
                     android:id="@+id/vendor_who"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:fontFamily="@font/poppins_regular"
-                    android:padding="5dp"
-                    android:text="Role" />
+                    android:text="Role"
+                    android:textSize="18dp"
+                    android:textColor="@color/colorPrimaryDark" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="16dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -95,28 +84,28 @@
                     android:fontFamily="@font/poppins_regular"
                     android:gravity="start"
                     android:text="Sevasi Road, Vadodara"
-                    android:textSize="15dp" />
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18dp" />
 
                 <TextView
                     android:id="@+id/vendor_exp"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:fontFamily="@font/poppins_regular"
                     android:gravity="start"
                     android:text="10 Yrs Exp"
-                    android:textSize="15dp" />
-
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18dp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="16dp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/vendor_buttonEnquiry"
+                    android:id="@+id/vendor_buttonCall"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="5dp"
@@ -135,72 +124,95 @@
                     android:id="@+id/vendor_buttonChat"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/rate"
                     android:clickable="true"
-                    android:drawableLeft="@drawable/icons8_whatsapp_24"
                     android:focusable="true"
                     android:fontFamily="@font/poppins_medium"
-                    android:gravity="start"
+                    android:gravity="center"
                     android:padding="5dp"
                     android:text="Chat"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    app:drawableLeftCompat="@drawable/icons8_whatsapp_24" />
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/vendor_reviews_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="@font/poppins_bold"
-                android:text="Reviews &amp; Ratings"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp">
+
 
                 <TextView
                     android:id="@+id/vendor_rating"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/rate"
+                    android:layout_height="match_parent"
                     android:fontFamily="@font/poppins_medium"
-                    android:padding="5dp"
-                    android:text="3.5"
+                    android:text="Give \nYour Review"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/vendor_rating_count"
+                <RatingBar
+                    android:id="@+id/vendor_review"
+                    style="@style/RatingBar"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/poppins_medium"
-                    android:gravity="center"
-                    android:text="11 Ratings" />
-
-                <RatingBar
-                    android:id="@+id/vendor_review_"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:numStars="5"
-                    android:padding="8dp"
-                    android:textSize="16sp" />
+                    android:rating="0"
+                    android:stepSize="1"
+                    android:theme="@style/RatingBar" />
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:id="@+id/vendor_reviews_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Rating &amp; Reviews"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/vendor_Star"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rate"
+                    android:gravity="center"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="3.5"
+                    android:textSize="25dp"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingEnd="5dp"
+                    android:layout_marginEnd="35dp"
+                    android:textColor="@color/colorPrimaryDark" />
+
+                <TextView
+                    android:id="@+id/vendor_Rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="114 Rating"
+                    android:layout_marginEnd="25dp"
+                    android:textSize="18dp"
+                    android:gravity="center"
+                    android:textColor="@color/colorPrimaryDark" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/vendor_reviews_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

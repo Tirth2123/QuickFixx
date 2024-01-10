@@ -28,8 +28,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Forgot_Password extends AppCompatActivity {
 
-    //private String Baseurl ="http://192.168.234.42:3000";
-    private String Baseurl = "http://10.0.2.2:3000";
     TextInputEditText emailInput, newPasswordInput, otpInput;
     TextView sendOtpButton, resendOtpTimerTextView, resendOtpTextView;
     TextView forgot_error_text_view_email, forgot_error_text_view_pass, forgot_error_text_view_otp;
@@ -41,12 +39,7 @@ public class Forgot_Password extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Baseurl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        api = retrofit.create(Api.class);
+        api = RetrofitClient.getClient();
 
         emailInput = findViewById(R.id.Forgot_Input_Username);
         newPasswordInput = findViewById(R.id.Forgot_Input_Password);

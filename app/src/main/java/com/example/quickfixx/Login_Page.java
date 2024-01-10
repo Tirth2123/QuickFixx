@@ -1,16 +1,12 @@
 package com.example.quickfixx;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,12 +20,8 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Login_Page extends AppCompatActivity {
-    //private String Baseurl ="http://192.168.234.42:3000";
-    private String Baseurl ="http://10.0.2.2:3000";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +39,13 @@ public class Login_Page extends AppCompatActivity {
 
         TextView signup = findViewById(R.id.Login_SignUp);
         TextView forgot = findViewById(R.id.login_forgot_password);
+        TextView login_errorTextView_pass = findViewById(R.id.login_error_text_view_pass);
+        TextView login_errorTextView_email = findViewById(R.id.login_error_text_view_email);
+
         LinearLayout login = findViewById(R.id.Login_Login_Button);
 
         TextInputEditText usernameInput = findViewById(R.id.Input1_Username);
         TextInputEditText passwordInput = findViewById(R.id.Input1_Password);
-        TextView login_errorTextView_pass = findViewById(R.id.login_error_text_view_pass);
-        TextView login_errorTextView_email = findViewById(R.id.login_error_text_view_email);
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,12 +86,7 @@ public class Login_Page extends AppCompatActivity {
                     login_errorTextView_pass.setVisibility(View.GONE);
                 }
 
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Baseurl)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-
-                Api api = retrofit.create(Api.class);
+                Api api = RetrofitClient.getClient();
 
                 Call<ResponseBody> call = api.loginUser(new User(Username, password));
                 call.enqueue(new Callback<ResponseBody>() {
