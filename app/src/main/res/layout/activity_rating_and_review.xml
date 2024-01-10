@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Rating_and_Review">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/review_page_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <ImageButton
+            android:id="@+id/review_page_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/icons8_menu_30" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/poppins_bold"
+        android:gravity="start"
+        android:layout_marginStart="10dp"
+        android:text="Give Review"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="3">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/review_page_Picture"
+                android:layout_width="match_parent"
+                android:layout_height="145dp"
+                android:background="@color/colorMainBtn" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_weight="4"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/review_page_wroker_Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Service Provider Name"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/review_page_wroker_Address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Sevasi Road, Vadodara"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="17sp" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Rate Your Experience"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RatingBar
+                android:id="@+id/review_page_vendor_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/RatingBar"
+                android:numStars="5"
+                android:rating="0"
+                android:stepSize="1"
+                android:layout_marginRight="5dp"/>
+
+            <TextView
+                android:id="@+id/Terrible"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:gravity="end|center"
+                android:text="Terrible"
+                app:drawableRightCompat="@drawable/terrible"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/Bad"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:gravity="end|center"
+                android:text="Bad"
+                app:drawableRightCompat="@drawable/bad"
+                android:visibility="gone"/>
+            <TextView
+                android:id="@+id/Average"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:gravity="end|center"
+                android:text="Average"
+                app:drawableRightCompat="@drawable/average"
+                android:visibility="gone"/>
+            <TextView
+                android:id="@+id/Good"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:gravity="end|center"
+                android:text="Good"
+                app:drawableRightCompat="@drawable/good"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/Excellent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:gravity="end|center"
+                android:text="Excellent"
+                app:drawableRightCompat="@drawable/excellent"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Write Your Review Here"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/review_page_vendor_review"
+            style="@style/MyTextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Share Your experience with service providers"
+            app:hintTextAppearance="@style/MyTextHint">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/review_page_review_textview"
+                style="@style/MyEditTextRegular"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:gravity="top"
+                android:imeOptions="actionNext"
+                android:inputType="textLongMessage"
+                android:maxLength="100"
+                android:minLines="2" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/review_page_submit_review"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:fontFamily="@font/poppins_bold"
+        android:gravity="center"
+        android:text="Submit Review"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="17sp"
+        android:background="@drawable/btn_main"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:clickable="true"
+        android:focusable="true"/>
+
+</LinearLayout>
