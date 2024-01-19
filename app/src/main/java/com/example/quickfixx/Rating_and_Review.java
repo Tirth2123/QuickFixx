@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -20,6 +21,10 @@ import android.widget.Toast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,10 +32,10 @@ import retrofit2.Response;
 
 public class Rating_and_Review extends AppCompatActivity {
 
-    ImageButton imageButton;
+    ImageButton imageButton, back;
     RatingBar ratingBar;
     SimpleDraweeView simpleDraweeView;
-    TextView terrible, bad, average, good, excellent;
+    TextView terrible, bad, average, good, excellent, title;
     TextView comp_name,comp_address;
     TextInputEditText textView_review;
     TextView submit_review;
@@ -54,10 +59,16 @@ public class Rating_and_Review extends AppCompatActivity {
         comp_name = findViewById(R.id.review_page_wroker_Name);
         comp_address = findViewById(R.id.review_page_wroker_Address);
 
+        back = findViewById(R.id.back_rating_reviews);
+        title = findViewById(R.id.title_rating_reviews);
+        SharedPreferences sharedPref = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
+        String name = sharedPref.getString("name", null);
+        title.setText("Hello " + name + "!!");
+
         comp_name.setText(profile.getCompanyName());
         comp_address.setText(profile.getAddress());
         if (!profile.getImages().isEmpty()) {
-            String serverUrl = "http://192.168.184.42:3000";
+            String serverUrl = RetrofitClient.BASE_URL;
             String imageUrl = serverUrl + "/" + profile.getImages().get(0);
             Uri uri = Uri.parse(imageUrl);
             simpleDraweeView = findViewById(R.id.review_page_Picture);
@@ -124,6 +135,7 @@ public class Rating_and_Review extends AppCompatActivity {
                                         public void onClick(DialogInterface dialog, int which) {
                                             SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
                                             SharedPreferences.Editor myEdit = sharedPreferences.edit();
+                                            myEdit.remove("name");
                                             myEdit.remove("emailId");
                                             myEdit.remove("password");
                                             myEdit.commit();
@@ -161,9 +173,12 @@ public class Rating_and_Review extends AppCompatActivity {
 
                 SharedPreferences sharedPref = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
                 String userEmail = sharedPref.getString("emailId", null);
-
+                String name = sharedPref.getString("name", null);
+                String date = new SimpleDateFormat("dd/MMM/yy", Locale.getDefault()).format(new Date());
                 String serviceProviderContact = profile.getPhoneNo();
-                Review review = new Review(userEmail, serviceProviderContact, rating, reviewText);
+
+                Review review = new Review(name, userEmail, serviceProviderContact, rating, reviewText, date);
+
 
                 Api api = RetrofitClient.getClient();
 
@@ -176,6 +191,7 @@ public class Rating_and_Review extends AppCompatActivity {
                             Intent intent = new Intent(getApplicationContext(), Vendor_Details.class);
                             intent.putExtra("profile", profile);
                             startActivity(intent);
+                            finish();
                         } else {
                             Toast.makeText(getApplicationContext(), "Failed to submit review", Toast.LENGTH_SHORT).show();
                         }
@@ -186,6 +202,14 @@ public class Rating_and_Review extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "An error occurred", Toast.LENGTH_SHORT).show();
                     }
                 });
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),Vendor_Details.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

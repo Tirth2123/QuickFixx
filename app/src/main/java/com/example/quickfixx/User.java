@@ -1,6 +1,7 @@
 package com.example.quickfixx;
 
-public class User {
+
+public class User{
     private String name;
     private String address;
     private String city;
@@ -23,6 +24,10 @@ public class User {
     public User(String emailId, String password) {
         this.emailId = emailId;
         this.password = password;
+    }
+
+    public User() {
+
     }
 
     public String getName() {

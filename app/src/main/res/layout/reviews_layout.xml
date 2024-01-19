@@ -1,0 +1,60 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/reviewer_Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="start"
+            android:text="Reviewer Name"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/review_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:fontFamily="@font/poppins_regular"
+            android:padding="5dp"
+            android:text="date"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <RatingBar
+            android:id="@+id/reviewer_ratingBar"
+            style="@style/RatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:numStars="5"
+            android:rating="0"
+            android:scaleX=".5"
+            android:scaleY=".5"
+            android:stepSize="1"
+            android:theme="@style/RatingBar"
+            android:transformPivotX="0dp"
+            android:transformPivotY="0dp"
+            android:isIndicator="true"/>
+
+        <TextView
+            android:id="@+id/reviewer_review"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Review Text"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

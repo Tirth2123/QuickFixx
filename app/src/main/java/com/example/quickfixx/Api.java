@@ -8,6 +8,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface Api {
     @POST("login")
@@ -28,5 +29,9 @@ public interface Api {
 
     @POST("submit_review")
     Call<ResponseBody> submitReview(@Body Review review);
+
+    @GET("reviews/{serviceProviderContact}")
+    Call<List<Review>> getReviews(@Path("serviceProviderContact") String serviceProviderContact);
+
 }
 

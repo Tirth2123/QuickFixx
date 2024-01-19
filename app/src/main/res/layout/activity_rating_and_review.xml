@@ -17,6 +17,24 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
         <ImageButton
+            android:id="@+id/back_rating_reviews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/baseline_keyboard_backspace_24" />
+
+        <TextView
+            android:id="@+id/title_rating_reviews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello Tirth Shah!!"
+            android:gravity="center"
+            android:fontFamily="@font/poppins_bold"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+        <ImageButton
             android:id="@+id/review_page_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -186,6 +186,7 @@ public class Signup_Page extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
                             SharedPreferences.Editor myEdit = sharedPreferences.edit();
+                            myEdit.putString("name",name);
                             myEdit.putString("emailId", emailId);
                             myEdit.putString("password", password);
                             myEdit.commit();

@@ -10,6 +10,8 @@ public class Profile implements Serializable {
     private String experience;
     private String address;
     private List<String> images;
+    private int totalRatings;
+    private float averageRating;
 
     private String phoneNo;
 
@@ -23,6 +25,21 @@ public class Profile implements Serializable {
         this.phoneNo = phoneNo;
     }
 
+    public int getTotalRatings() {
+        return totalRatings;
+    }
+
+    public void setTotalRatings(int totalRatings) {
+        this.totalRatings = totalRatings;
+    }
+
+    public float getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(float averageRating) {
+        this.averageRating = averageRating;
+    }
     public String getCompanyName() {
         return companyName;
     }

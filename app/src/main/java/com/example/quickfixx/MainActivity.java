@@ -3,10 +3,12 @@ package com.example.quickfixx;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ServiceProviderAdapter adapter;
     List<Profile> profiles;
-    ImageButton imageButton;
+    ImageButton imageButton,back;
+    TextView title;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +55,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Fresco.initialize(this);
 
-        recyclerView = findViewById(R.id.recyclerView);
         imageButton = findViewById(R.id.menu);
+        recyclerView = findViewById(R.id.recyclerView);
+        back = findViewById(R.id.back_main);
+        title = findViewById(R.id.title_main);
+        SharedPreferences sharedPref = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
+        String name = sharedPref.getString("name", null);
+        title.setText("Hello " + name + "!!");
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         Api api = RetrofitClient.getClient();
@@ -95,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                                         public void onClick(DialogInterface dialog, int which) {
                                             SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
                                             SharedPreferences.Editor myEdit = sharedPreferences.edit();
+                                            myEdit.remove("name");
                                             myEdit.remove("emailId");
                                             myEdit.remove("password");
                                             myEdit.commit();
@@ -117,6 +128,12 @@ public class MainActivity extends AppCompatActivity {
                 popup.show();
             }
         });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     class ServiceProviderViewHolder extends RecyclerView.ViewHolder {
@@ -129,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
         TextView textViewWhatsapp;
         TextView textPhoneNo;
         TextView textViewService;
+        CardView cardView;
 
         ServiceProviderViewHolder(View itemView) {
             super(itemView);
@@ -141,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
             textPhoneNo = itemView.findViewById(R.id.buttonCall);
             textViewWhatsapp = itemView.findViewById(R.id.buttonChat);
             details = itemView.findViewById(R.id.buttonDetails);
+            cardView = itemView.findViewById(R.id.card);
         }
     }
 
@@ -165,10 +184,10 @@ public class MainActivity extends AppCompatActivity {
             holder.textViewAddress.setText(profile.getAddress());
             holder.textViewService.setText(profile.getService());
             holder.textPhoneNo.setText(profile.getPhoneNo());
-            //holder.textViewRating.setText();
-            //holder.textViewStar.setText();
+            holder.textViewRating.setText(String.valueOf(profile.getTotalRatings()) + " Ratings");
+            holder.textViewStar.setText(String.format("%.1f", profile.getAverageRating()));
             if (!profile.getImages().isEmpty()) {
-                String serverUrl = "http://192.168.184.42:3000";
+                String serverUrl = RetrofitClient.BASE_URL;
                 String imageUrl = serverUrl + "/" + profile.getImages().get(0);
                 Uri uri = Uri.parse(imageUrl);
                 SimpleDraweeView draweeView = (SimpleDraweeView) holder.itemView.findViewById(R.id.Picture);
@@ -202,6 +221,14 @@ public class MainActivity extends AppCompatActivity {
             });
 
             holder.details.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(), Vendor_Details.class);
+                    intent.putExtra("profile", profile);
+                    startActivity(intent);
+                }
+            });
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(getApplicationContext(), Vendor_Details.class);
