@@ -53,7 +53,7 @@
                     android:id="@+id/wroker_Star"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rate"
+                    android:background="@color/colorMainBtn"
                     android:fontFamily="@font/poppins_medium"
                     android:gravity="center"
                     android:padding="5dp"
