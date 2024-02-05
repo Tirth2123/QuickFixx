@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +35,9 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -44,9 +49,10 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ServiceProviderAdapter adapter;
-    List<Profile> profiles;
     ImageButton imageButton,back;
-    TextView title;
+    TextView title,availability;
+    Chip chipSortBy, chipTopRated, chipRating;
+    private List<Profile> profiles;
 
 
     @Override
@@ -59,6 +65,10 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         back = findViewById(R.id.back_main);
         title = findViewById(R.id.title_main);
+        chipSortBy = findViewById(R.id.sort_by);
+        chipTopRated = findViewById(R.id.top_rated);
+        chipRating = findViewById(R.id.ratings);
+        availability = findViewById(R.id.avilable);
         SharedPreferences sharedPref = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
         String name = sharedPref.getString("name", null);
         title.setText("Hello " + name + "!!");
@@ -75,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                List<Profile> profiles = response.body();
+                profiles = response.body();
                 adapter = new ServiceProviderAdapter(profiles);
                 recyclerView.setAdapter(adapter);
             }
@@ -134,6 +144,110 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        chipSortBy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showMenu(v);
+            }
+        });
+
+        chipTopRated.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<Profile> sortedProfiles = sortProfilesByRating(profiles);
+                updateRecyclerView(sortedProfiles, "All services");
+            }
+        });
+
+        chipRating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showRatingsMenu(v);
+            }
+        });
+
+    }
+
+    private void showMenu(View v) {
+        PopupMenu popupMenu = new PopupMenu(this, v);
+        MenuInflater inflater = popupMenu.getMenuInflater();
+        inflater.inflate(R.menu.menu_services, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                String service = item.getTitle().toString();
+                List<Profile> filteredProfiles = filterProfilesByService(service);
+                updateRecyclerView(filteredProfiles, service);
+                return true;
+            }
+        });
+        popupMenu.show();
+    }
+
+    private List<Profile> filterProfilesByService(String service) {
+        List<Profile> filteredProfiles = new ArrayList<>();
+        for (Profile profile : profiles) {
+            if (profile.getService().equals(service)) {
+                filteredProfiles.add(profile);
+            }
+        }
+        return filteredProfiles;
+    }
+
+    private void updateRecyclerView(List<Profile> profiles, String service) {
+        if (profiles.isEmpty()) {
+            availability.setText("At this moment, there is no " + service + " available.");
+            availability.setVisibility(View.VISIBLE);
+        } else {
+            availability.setVisibility(View.GONE);
+        }
+        adapter = new ServiceProviderAdapter(profiles);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private List<Profile> sortProfilesByRating(List<Profile> profiles) {
+        // Create a new list to avoid modifying the original list
+        List<Profile> sortedProfiles = new ArrayList<>(profiles);
+        Collections.sort(sortedProfiles, new Comparator<Profile>() {
+            @Override
+            public int compare(Profile p1, Profile p2) {
+                return Double.compare(p2.getAverageRating(), p1.getAverageRating());
+            }
+        });
+        return sortedProfiles;
+    }
+
+    private void showRatingsMenu(View v) {
+        PopupMenu popupMenu = new PopupMenu(this, v);
+        MenuInflater inflater = popupMenu.getMenuInflater();
+        inflater.inflate(R.menu.menu_ratings, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                // Handle menu item click here
+                String selectedFilter = item.getTitle().toString();
+                List<Profile> filteredProfiles = filterProfilesByRating(selectedFilter);
+                updateRecyclerView(filteredProfiles, selectedFilter);
+                return true;
+            }
+        });
+        popupMenu.show();
+    }
+
+    private List<Profile> filterProfilesByRating(String filter) {
+        double minRating = 0;
+        if (!filter.equals("Any")) {
+            String ratingString = filter.replace("+", ""); // Remove the "+" sign
+            minRating = Double.parseDouble(ratingString);
+        }
+        List<Profile> filteredProfiles = new ArrayList<>();
+        for (Profile profile : profiles) {
+            if (profile.getAverageRating() >= minRating) {
+                filteredProfiles.add(profile);
+            }
+        }
+        return filteredProfiles;
     }
 
     class ServiceProviderViewHolder extends RecyclerView.ViewHolder {
@@ -177,7 +291,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-
         public void onBindViewHolder(ServiceProviderViewHolder holder, int position) {
             Profile profile = profiles.get(position);
             holder.textViewName.setText(profile.getCompanyName());

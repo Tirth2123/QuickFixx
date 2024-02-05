@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/rating_any" android:title="Any" />
+    <item android:id="@+id/rating_3.5" android:title="3.5+" />
+    <item android:id="@+id/rating_4.0" android:title="4.0+" />
+    <item android:id="@+id/rating_4.5" android:title="4.5+" />
+    <item android:id="@+id/rating_5.0" android:title="5.0" />
+</menu>

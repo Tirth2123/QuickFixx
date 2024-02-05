@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/plumbing_services" android:title="Plumbing Services" />
+    <item android:id="@+id/electrical_services" android:title="Electrical Services" />
+    <item android:id="@+id/cleaning_services" android:title="Cleaning Services" />
+    <item android:id="@+id/appliance_repair" android:title="Appliance Repair" />
+    <item android:id="@+id/event_planning_services" android:title="Event Planning Services" />
+    <item android:id="@+id/photography_and_videography" android:title="Photography and Videography" />
+</menu>
+
+
+
+
+
